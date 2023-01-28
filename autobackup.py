@@ -1,10 +1,11 @@
 import os
 import sys
+import pathlib
 
-folders = ["Files", "Games", "Media", "Programming", "Work"]
+FOLDERS = [pathlib.Path("D:\Documents\temp\_Vault")]
 
 def makeFolders():
-    for name in folders:
+    for name in FOLDERS:
         #Check if folder exists
         if (not os.path.isdir(name)):
             print("INFO: Directory "+name+" not found, creating")
@@ -18,7 +19,7 @@ def configGDrive2():
     os.system(createCommand)  
 
 def fetchGDrive2(quietSync):
-    for name in folders:
+    for name in FOLDERS:
         if(quietSync):
             firstSyncCommand = "rclone sync --tpslimit 10 GDriveBase:Backup/"+name+" ./"+name
             os.system(firstSyncCommand)       
@@ -27,7 +28,7 @@ def fetchGDrive2(quietSync):
             os.system(firstSyncCommand)       
 
 def syncGDrive2():
-    for name in folders:
+    for name in FOLDERS:
         firstSyncCommand = "rclone sync -i --tpslimit 10 ./"+name+" GDriveBase:Backup/"+name
         os.system(firstSyncCommand)           
 
@@ -38,12 +39,12 @@ def configOneDrive():
     os.system(createCommand)
 
 def fetchOneDrive():
-    for name in folders:
+    for name in FOLDERS:
         firstSyncCommand = "rclone sync -vv --tpslimit 10 onedriveA10:Backups/"+name+" ./"+name
         os.system(firstSyncCommand)        
 
 def syncOneDrive():
-    for name in folders:
+    for name in FOLDERS:
         firstSyncCommand = "rclone sync -i --tpslimit 10 ./"+name+" onedriveA10:Backups/"+name
         os.system(firstSyncCommand)           
 
